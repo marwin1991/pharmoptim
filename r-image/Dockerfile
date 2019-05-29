@@ -5,8 +5,8 @@ RUN R -e "install.packages('data.table',dependencies=TRUE, repos='http://cran.rs
 RUN R -e "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('deSolve',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
-COPY ./R_dialog_testowy.R /R_dialog_testowy.R
+COPY ./script.R /script.R
 
 WORKDIR /
 
-CMD ["Rscript", "/R_dialog_testowy.R"]
+CMD ["Rscript", "/script.R"]

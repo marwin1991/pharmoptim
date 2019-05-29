@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  description: "dose"
+  version: "1.0.0"
+  title: "Dose"
+servers:
+  - url: http://dose.agh.edu.pl/v1
+    description: dose @ AGH
+tags:
+- name: "job"
+  description: "Jobs management, obtaining results"
+paths:
+  /jobs:
+    post:
+      tags:
+      - job
+      description: "Schedule one or more jobs"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/JobParams"
+      responses:
+        201:
+          description: "Created one or more jobs"
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schemas/JobIdOrError"
+        422:
+          description: "Invalid arguments"
+  /jobs/{jobId}:
+    delete:
+      tags:
+      - job
+      description: "Cancel running job"
+      parameters:
+      - in: path
+        name: jobId
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "Cancelled"
+        404:
+          description: "No such job"
+        405:
+          description: "Job is not running. Either finished or was cancelled."
+  /jobs/{jobIds}/status:
+    get:
+      tags:
+      - job
+      description: "Job status"
+      parameters:
+      - in: path
+        name: jobIds
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobId"
+      responses:
+        200:
+          description: "Status"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/JobStatus"
+        404:
+          description: "No such jobs"
+  /jobs/{jobIds}/results:
+    get:
+      tags:
+      - job
+      description: "Job results"
+      parameters:
+      - in: path
+        name: jobIds
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobId"
+      responses:
+        200:
+          description: "Results"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/JobResultsOrError"
+        404:
+          description: "No such jobs"
+components:
+  schemas:
+    JobStatus:
+      type: object
+      properties:
+        id: 
+          $ref: "#/components/schemas/JobId"
+        status:
+          type: string
+          description: "Job status"
+          enum:
+            - running
+            - done
+            - cancelled
+            - error
+    JobId:
+      type: integer
+      description: "Job id"
+    JobIdOrError:
+      description: "Job id or job creation error message"
+      type: object
+      oneOf: 
+        - $ref: "#/components/schemas/JobId"
+        - $ref: "#/components/schemas/Error"
+    JobParams:
+      type: object
+      properties:
+        oralDose:
+          type: integer
+          description: "Oral bolus dose [mg]"
+        infDose:
+          type: integer
+          description: "Intravenous dose"
+        infTime:
+          type: integer
+          description: "Infusion time"
+        individualCount:
+          type: integer
+          description: "Number of individuals"
+        femaleCount:
+          type: integer
+          description: "Number of females"
+        minAge:
+          type: integer
+          description: "Minimal age"
+        maxAge:
+          type: integer
+          description: "Maximal age"
+        tEnd:
+          type: integer
+          description: "Simulation time [h]"
+        seed:
+          type: integer
+          description: "Seed"
+    JobResultsOrError:
+      description: "Job results or job runtime error message"
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/JobResults"
+        - $ref: "#/components/schemas/Error"
+    JobResults:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/JobId"
+        population:
+          type: string
+          description: "URL of the file with 59 parameters for each person (Population Data Frame)"
+        newDf:
+          type: string
+          description: "URL of the file with the newDF Data Frame"
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: "Error string"
