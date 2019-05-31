@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  description: "PharmOptim AGH Prometheus Callback API"
+  version: "1.0.0"
+  title: "Prometheus Callback API"
+
+paths:
+  /callback/jobs/{jobId}:
+    post:
+      tags:
+      - job
+      description: "Returning job result"
+      parameters:
+      - in: path
+        name: jobId
+        required: true
+        schema:
+         $ref: "#/components/schemas/JobId"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                filename:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        200:
+          description: "Ok"
+        404:
+          description: "No such jobs"
+components:
+  schemas:
+    JobId:
+      type: integer
+      description: "Job id"
