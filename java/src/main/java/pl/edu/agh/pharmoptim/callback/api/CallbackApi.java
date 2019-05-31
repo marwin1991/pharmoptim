@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
@@ -25,6 +26,6 @@ public interface CallbackApi {
     @RequestMapping(value = "/callback/jobs/{jobId}",
         consumes = { "multipart/form-data" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> callbackJobsJobIdPost(@ApiParam(value = "", required = true) @PathVariable("jobId") Integer jobId, @ApiParam(value = "") @RequestParam(value = "filename", required = false) List<File> filename);
+    ResponseEntity<Void> callbackJobsJobIdPost(@ApiParam(value = "", required = true) @PathVariable("jobId") Integer jobId, @ApiParam(value = "") @RequestParam(value = "files", required = false) List<MultipartFile> files);
 
 }

@@ -29,3 +29,32 @@ Publishing image in docker registry:
 ``` 
 
 It is adjust for marwin1991 account
+
+Useful commands (Development)
+---------------------------
+Download R-script image: 
+```
+docker pull marwin1991/pharmoptim
+```
+Start container and enter it: 
+```
+docker run -e "ORAL_DOSE=880" \
+-e "INF_DOSE=0" \
+-e "INF_TIME=2" \
+-e "T_END=15" \
+-e "SEED=1111" \
+-v ./result:/result \
+-it marwin1991/pharmoptim /bin/bash
+```
+Run container in background: 
+```
+docker run -e "ORAL_DOSE=880" \
+-e "INF_DOSE=0" \
+-e "INF_TIME=2" \
+-e "T_END=15" \
+-e "SEED=1111" \
+-v ./result:/result \
+-d marwin1991/pharmoptim
+```
+TODO: Image is really primitive due to no appropriate R-script
+that should be provided. 
