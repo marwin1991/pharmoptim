@@ -46,6 +46,10 @@ docker run -e "ORAL_DOSE=880" \
 -v ./result:/result \
 -it marwin1991/pharmoptim /bin/bash
 ```
+
+```
+docker run -e "ORAL_DOSE=880" -e "INF_DOSE=0" -e "INF_TIME=2" -e "T_END=15" -e "SEED=1111" -v ./result:/result -it marwin1991/pharmoptim /bin/bash
+```
 Run container in background: 
 ```
 docker run -e "ORAL_DOSE=880" \
