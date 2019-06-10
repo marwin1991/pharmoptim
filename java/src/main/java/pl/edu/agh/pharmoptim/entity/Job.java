@@ -1,18 +1,19 @@
 package pl.edu.agh.pharmoptim.entity;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
+import pl.edu.agh.pharmoptim.model.JobStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
+import javax.persistence.Id;
 
 
 @Setter
 @Getter
 @Builder
 @Entity
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Job {
@@ -28,4 +29,7 @@ public class Job {
     private Integer maxAge;
     private Integer tEnd;
     private Integer seed;
+    private String status;
+    private String pathToPopulation;
+    private String pathToNewDf;
 }

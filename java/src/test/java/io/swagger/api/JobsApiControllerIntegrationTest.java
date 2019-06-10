@@ -27,7 +27,7 @@ public class JobsApiControllerIntegrationTest {
 
     @Test
     public void jobsJobIdDeleteTest() throws Exception {
-        Integer jobId = 56;
+        Long jobId = 56L;
         ResponseEntity<Void> responseEntity = api.jobsJobIdDelete(jobId);
         assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
     }

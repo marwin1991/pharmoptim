@@ -19,9 +19,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 import java.util.List;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-05-29T18:58:28.378Z[GMT]")
 @Api(value = "jobs", description = "the jobs API")
 public interface JobsApi {
+
+    @ApiOperation(value = "", nickname = "jobsPost", notes = "Schedule one or more jobs", response = JobIdOrError.class, responseContainer = "List", tags={ "job", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created one or more jobs", response = JobIdOrError.class, responseContainer = "List"),
+            @ApiResponse(code = 422, message = "Invalid arguments") })
+    @RequestMapping(value = "/jobs",
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.POST)
+    ResponseEntity<List<JobIdOrError>> jobsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<JobParams> body);
 
     @ApiOperation(value = "", nickname = "jobsJobIdDelete", notes = "Cancel running job", tags={ "job", })
     @ApiResponses(value = { 
@@ -30,7 +39,7 @@ public interface JobsApi {
         @ApiResponse(code = 405, message = "Job is not running. Either finished or was cancelled.") })
     @RequestMapping(value = "/jobs/{jobId}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> jobsJobIdDelete(@ApiParam(value = "",required=true) @PathVariable("jobId") Integer jobId);
+    ResponseEntity<Void> jobsJobIdDelete(@ApiParam(value = "",required=true) @PathVariable("jobId") Long jobId);
 
 
     @ApiOperation(value = "", nickname = "jobsJobIdsResultsGet", notes = "Job results", response = JobResultsOrError.class, responseContainer = "List", tags={ "job", })
@@ -51,16 +60,5 @@ public interface JobsApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<JobStatus>> jobsJobIdsStatusGet(@ApiParam(value = "",required=true) @PathVariable("jobIds") List<Integer> jobIds);
-
-
-    @ApiOperation(value = "", nickname = "jobsPost", notes = "Schedule one or more jobs", response = JobIdOrError.class, responseContainer = "List", tags={ "job", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created one or more jobs", response = JobIdOrError.class, responseContainer = "List"),
-        @ApiResponse(code = 422, message = "Invalid arguments") })
-    @RequestMapping(value = "/jobs",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    ResponseEntity<List<JobIdOrError>> jobsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<JobParams> body);
 
 }

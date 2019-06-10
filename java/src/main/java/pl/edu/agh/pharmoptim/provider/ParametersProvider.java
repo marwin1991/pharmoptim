@@ -1,4 +1,4 @@
-package pl.edu.agh.pharmoptim.service;
+package pl.edu.agh.pharmoptim.provider;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,4 +19,13 @@ public class ParametersProvider {
 
     @Value( "${pharmoptim.server.password}" )
     private String password;
+
+    @Value( "${pharmoptim.server.start_command}")
+    private String startCommand;
+
+    @Value( "${pharmoptim.server.delete_command}")
+    private String deleteCommand;
+
+    @Value( "${pharmoptim.server.callback_address}")
+    private String callbackAddress;
 }

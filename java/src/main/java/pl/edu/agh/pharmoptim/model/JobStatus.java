@@ -25,6 +25,8 @@ public class JobStatus   {
     DONE("done"),
     
     CANCELLED("cancelled"),
+
+    NOT_FOUND("not_found"),
     
     ERROR("error");
 

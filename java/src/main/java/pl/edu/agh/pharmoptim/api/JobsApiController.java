@@ -1,5 +1,7 @@
 package pl.edu.agh.pharmoptim.api;
 
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.agh.pharmoptim.model.JobIdOrError;
 import pl.edu.agh.pharmoptim.model.JobParams;
 import pl.edu.agh.pharmoptim.model.JobResultsOrError;
@@ -13,45 +15,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import pl.edu.agh.pharmoptim.service.JobDeleteService;
+import pl.edu.agh.pharmoptim.service.JobResultService;
+import pl.edu.agh.pharmoptim.service.JobStarterService;
+import pl.edu.agh.pharmoptim.service.JobStatusService;
 
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-05-29T18:58:28.378Z[GMT]")
 @Controller
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class JobsApiController implements JobsApi {
 
-    private static final Logger log = LoggerFactory.getLogger(JobsApiController.class);
+    private final JobStarterService jobStarterService;
+    private final JobDeleteService jobDeleteService;
+    private final JobResultService jobResultService;
+    private final JobStatusService jobStatusService;
 
-    private final ObjectMapper objectMapper;
-
-    private final HttpServletRequest request;
-
-    @org.springframework.beans.factory.annotation.Autowired
-    public JobsApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
+    public ResponseEntity<List<JobIdOrError>> jobsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<JobParams> body) {
+        return new ResponseEntity<>(jobStarterService.startJobs(body), HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> jobsJobIdDelete(@ApiParam(value = "",required=true) @PathVariable("jobId") Integer jobId) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> jobsJobIdDelete(@ApiParam(value = "",required=true) @PathVariable("jobId") Long jobId) {
+        jobDeleteService.deleteJob(jobId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     public ResponseEntity<List<JobResultsOrError>> jobsJobIdsResultsGet(@ApiParam(value = "",required=true) @PathVariable("jobIds") List<Integer> jobIds) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<List<JobResultsOrError>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(jobResultService.getResults(jobIds), HttpStatus.OK);
     }
 
     public ResponseEntity<List<JobStatus>> jobsJobIdsStatusGet(@ApiParam(value = "",required=true) @PathVariable("jobIds") List<Integer> jobIds) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<List<JobStatus>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(jobStatusService.getStatuses(jobIds), HttpStatus.OK);
     }
-
-    public ResponseEntity<List<JobIdOrError>> jobsPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody List<JobParams> body) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<List<JobIdOrError>>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
 }
