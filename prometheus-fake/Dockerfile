@@ -5,6 +5,8 @@ RUN  apt-get update \
   && apt-get install -y libarchive-dev \
   && apt-get install -y openssh-server \
   && apt-get install -y openrc \
+  && apt-get install -y squashfs-tools \
+  && apt-get install -y curl \
   && rm -rf /var/lib/apt/lists/*
 
 RUN VERSION=2.5.2 \
@@ -22,6 +24,8 @@ RUN echo "root:test1234" | chpasswd
 
 COPY ./start_job.sh /root/start_job.sh
 COPY ./delete_job.sh /root/delete_job.sh
+COPY ./send.sh /root/send.sh
+COPY ./pharmoptim.simg /root/pharmoptim.simg
 
 WORKDIR /
 

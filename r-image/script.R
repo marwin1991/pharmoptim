@@ -13,12 +13,12 @@ oral_dose <- as.integer(Sys.getenv("ORAL_DOSE"))
 inf_dose <- as.integer(Sys.getenv("INF_DOSE"))
 inf_time <- as.integer(Sys.getenv("INF_TIME"))
 #define number of individuals:
-individual_count <- 1
+individual_count <- as.integer(Sys.getenv("INDIVIDUAL_COUNT"))
 #define number of females:
-female_count <- 0
+female_count <- as.integer(Sys.getenv("FEMALE_COUNT"))
 #define age range [years]:
-min_age <- 24  #minimal age
-max_age <- 24 #maximal age
+min_age <- as.integer(Sys.getenv("MIN_AGE"))  #minimal age
+max_age <- as.integer(Sys.getenv("MAX_AGE")) #maximal age
 #time of the end of simulation [h]:
 t_end <- as.integer(Sys.getenv("T_END"))
 seed <- as.integer(Sys.getenv("SEED"))
@@ -1097,3 +1097,6 @@ for (i in pop3$rn) {
 results_list = lapply(ls(pattern = "outputCurry[0-9]"), get)#, envir = .GlobalEnv), get)
 
 newDF <- bind_rows(results_list, .id = "id")
+
+save(newDF, file = "newDF.RData")
+save(Population, file = "population.RData")

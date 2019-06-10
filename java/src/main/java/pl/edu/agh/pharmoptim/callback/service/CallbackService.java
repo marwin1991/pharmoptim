@@ -1,6 +1,5 @@
 package pl.edu.agh.pharmoptim.callback.service;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +59,9 @@ public class CallbackService {
                     .path("/downloadFile/")
                     .path(fileName)
                     .toUriString();
+
+            if(fileDownloadUri.contains("host.docker.internal"))
+                fileDownloadUri = fileDownloadUri.replace("host.docker.internal", "localhost");
 
             if(fileName.contains("popu"))
                 job.setPathToPopulation(fileDownloadUri);

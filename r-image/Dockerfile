@@ -6,7 +6,8 @@ RUN R -e "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio
 RUN R -e "install.packages('deSolve',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 COPY ./script.R /script.R
+COPY ./send.sh /send.sh
 
 WORKDIR /
 
-CMD ["Rscript", "/script.R"]
+CMD ["/bin/bash", "-c" ,"Rscript /script.R"]

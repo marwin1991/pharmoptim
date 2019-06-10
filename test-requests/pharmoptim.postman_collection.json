@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "423ba4e1-0ff6-48f6-bc1b-e56b72b7b4ef",
 		"name": "pharmoptim",
+		"_postman_id": "4c626984-eafc-8ee3-6e65-3622d31ee6a2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,13 +12,12 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n  {\r\n    \"oralDose\": 0,\r\n    \"infDose\": 0,\r\n    \"infTime\": 0,\r\n    \"individualCount\": 0,\r\n    \"femaleCount\": 0,\r\n    \"minAge\": 0,\r\n    \"maxAge\": 0,\r\n    \"tEnd\": 0,\r\n    \"seed\": 0\r\n  }\r\n]"
+					"raw": "[\r\n  {\r\n    \"oralDose\": 880,\r\n    \"infDose\": 0,\r\n    \"infTime\": 2,\r\n    \"individualCount\": 1,\r\n    \"femaleCount\": 0,\r\n    \"minAge\": 24,\r\n    \"maxAge\": 24,\r\n    \"tEnd\": 15,\r\n    \"seed\": 1111\r\n  }\r\n]"
 				},
 				"url": {
 					"raw": "localhost:8080/jobs",
@@ -28,12 +27,6 @@
 					"port": "8080",
 					"path": [
 						"jobs"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": ""
-						}
 					]
 				}
 			},
@@ -44,6 +37,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "localhost:8080/jobs/1,2/results",
 					"host": [
@@ -64,6 +61,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "localhost:8080/jobs/1,2/status",
 					"host": [
@@ -84,6 +85,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "localhost:8080/jobs/1",
 					"host": [

@@ -42,10 +42,11 @@ public class JobStarterService {
                     .status(JobStatus.StatusEnum.RUNNING.toString())
                     .build();
 
-            job = repository.saveAndFlush(job);
+            final Job jobToStart = repository.saveAndFlush(job);
             log.info(job.toString());
             result.add(new JobIdOrError().id(job.getId()));
-            startJobAtServer(job);
+
+            new Thread(() -> startJobAtServer(jobToStart)).start();
         });
 
         return result;
@@ -54,6 +55,7 @@ public class JobStarterService {
 
     private void startJobAtServer(Job job){
         try {
+            log.info("Starting job " + job.getId());
             Shell shell = new SshByPassword(
                     parametersProvider.getServerAddress(),
                     parametersProvider.getPort(),
@@ -61,7 +63,7 @@ public class JobStarterService {
                     parametersProvider.getPassword());
             String cmd = new Shell.Plain(shell).exec(prepareCommand(job));
             log.info(cmd);
-            log.info("Job started!");
+            log.info("Job " + job.getId() + " finished!");
         } catch (IOException e) {
             e.printStackTrace();
         }
