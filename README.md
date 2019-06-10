@@ -11,6 +11,7 @@ return results to server via callback API.
 
 ###Project Structure
 - **java** - directory with Java/Spring boot based microservice to base and callback API
+- **postman-test-requests** - directory with postman collection to test API
 - **prometheus** - directory contains scripts that are used on the Prometheus and useful notes.
 - **prometheus_fake** - directory contains files to create and develop docker image simulating AGH Prometheus.
 - **r-image** - directory contains files to create and develop docker image on witch calculations are made.
