@@ -82,6 +82,7 @@ public class CallbackService {
             }
 
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            log.info("File saved to: " + targetLocation.toAbsolutePath());
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
             return fileName;
