@@ -26,6 +26,6 @@ public interface CallbackApi {
     @RequestMapping(value = "/callback/jobs/{jobId}",
         consumes = { "multipart/form-data" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> callbackJobsJobIdPost(@ApiParam(value = "", required = true) @PathVariable("jobId") Integer jobId, @ApiParam(value = "") @RequestParam(value = "files", required = false) List<MultipartFile> files);
+    ResponseEntity<Void> callbackJobsJobIdPost(@ApiParam(value = "", required = true) @PathVariable("jobId") Long jobId, @ApiParam(value = "") @RequestParam(value = "files", required = false) List<MultipartFile> files);
 
 }
