@@ -25,7 +25,6 @@ RUN echo "root:test1234" | chpasswd
 COPY ./start_job.sh /root/start_job.sh
 COPY ./delete_job.sh /root/delete_job.sh
 COPY ./send.sh /root/send.sh
-COPY ./pharmoptim.simg /root/pharmoptim.simg
 
 WORKDIR /
 
