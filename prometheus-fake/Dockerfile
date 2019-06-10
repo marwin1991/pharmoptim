@@ -20,6 +20,9 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh
 
 RUN echo "root:test1234" | chpasswd
 
+COPY ./start_job.sh /root/start_job.sh
+COPY ./delete_job.sh /root/delete_job.sh
+
 WORKDIR /
 
 ENTRYPOINT [ "/bin/bash","-c","service ssh start && tail -f /dev/null" ]

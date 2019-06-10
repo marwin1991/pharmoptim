@@ -70,6 +70,7 @@ public class JobStarterService {
     private String prepareCommand(Job job){
         return parametersProvider.getStartCommand() + " " +
                 job.getId() + " " +
+                job.getOralDose() + " " +
                 job.getInfDose() + " " +
                 job.getInfTime() + " " +
                 job.getIndividualCount() + " " +
